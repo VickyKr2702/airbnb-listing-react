@@ -10,12 +10,8 @@ const Navbar = ({setFilter, setLocationFilter}) => {
         console.log(e.target.locationString.value)
         const locationValue = e.target.locationString.value
         const nameValue = e.target.queryString.value
-        if(locationValue){
-            setLocationFilter(locationValue)
-        }
-        if(nameValue){
-            setFilter(nameValue)
-        }
+        setLocationFilter(locationValue)
+        setFilter(nameValue)
     }
 
     return (
