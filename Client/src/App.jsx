@@ -7,6 +7,7 @@ function App() {
     
     const [stays, setStays] = useState([]);
     const [filter, setFilter] = useState("");
+    const [locationFilter, setLocationFilter] = useState("")
     const [originalStays, setOriginalStays] = useState([])
 
     async function fetchData(){
@@ -25,7 +26,30 @@ function App() {
         fetchData()
     },[])
 
-    useEffect(() => {
+    useEffect(()=>{
+        try{
+            if(filter.length !== 0 || locationFilter.length !== 0){
+                var ss = [...originalStays]
+                ss = ss.filter((item) => {
+                    var result = false
+                    if(filter && filter.length !== 0){
+                        result = result || new RegExp(filter, "i").test(item.listing.title)
+                    }
+                    if(locationFilter && locationFilter.length !== 0){
+                        result = result || new RegExp(locationFilter, "i").test(item.listing.coordinate.location)
+                    }
+                    return result
+                })
+                setStays([...ss])
+            }else{
+                fetchData()
+            }
+        }catch(err){
+            console.log(err)
+        }
+    },[filter, locationFilter])
+
+    // useEffect(() => {
         // const url = import.meta.env.VITE_API_URL;
         // const options = {
         //     method: "get",
@@ -49,38 +73,60 @@ function App() {
                     //     }
                     // }
                     
-        const func = async() => {
-            try{
-                var ss = [...originalStays];
-                console.log(filter)
-                console.log('before:',stays)
-                if(filter.length != 0){
-                    console.log('here too');
-                    ss = ss.filter((item) => {
-                        console.log("titles:",item.listing.title)
-                        const re = new RegExp(filter, "i")
-                        // const re = /i
-                        const result = re.test(item.listing.title)
-                        console.log(result);
-                        return result
-                    })
-                    console.log('after:',ss)
-                    setStays([...ss])
-                }else{
-                    fetchData()
-                }
-            }catch(err){
-                console.error(err)
-            }
-        }
+    //     const func = async() => {
+    //         try{
+    //             if(filter.length != 0){
+    //                 var ss = locationFilter === 0 ? [...originalStays] : [...stays];
+    //                 ss = ss.filter((item) => {
+    //                     console.log("titles:",item.listing.title)
+    //                     const re = new RegExp(filter, "i")
+    //                     // const re = /i
+    //                     const result = re.test(item.listing.title)
+    //                     console.log(result);
+    //                     return result
+    //                 })
+    //                 console.log('after:',ss)
+    //                 setStays([...ss])
+    //             }else{
+    //                 fetchData()
+    //             }
+    //         }catch(err){
+    //             console.error(err)
+    //         }
+    //     }
 
-        func();
+    //     func();
 
-    },[filter])
+    // },[filter])
 
-    useEffect(()=>{
-        console.log("stays changed")
-    },[stays])
+    // useEffect(()=>{
+    //     const func = async() => {
+    //         try{
+    //             if(locationFilter.length != 0){
+    //                 var ss = filter.length === 0 ? [...originalStays] : [...stays];
+    //                 console.log('here too');
+    //                 ss = ss.filter((item) => {
+    //                     console.log("locations:",item.listing.coordinate.location)
+    //                     const re = new RegExp(locationFilter, "i")
+    //                     const result = re.test(item.listing.coordinate.location)
+    //                     return result
+    //                 })
+    //                 console.log('after:',ss)
+    //                 setStays([...ss])
+    //             }else{
+    //                 fetchData()
+    //             }
+    //         }catch(err){
+    //             console.error(err)
+    //         }
+    //     }
+
+    //     func();
+    // },[locationFilter])
+
+    // useEffect(()=>{
+    //     console.log("stays changed")
+    // },[stays])
 
     // const getLocation = async () => {
     //     navigator.geolocation.getCurrentPosition((position) => {
@@ -95,7 +141,7 @@ function App() {
     
     return(
         <>
-            <Navbar setFilter={setFilter}/>
+            <Navbar setFilter={setFilter} setLocationFilter={setLocationFilter}/>
             <PropertyListing stays={stays}/>
         </>
     )
