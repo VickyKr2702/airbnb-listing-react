@@ -1,0 +1,29 @@
+{
+  "name": "airbnb_listing_server",
+  "version": "1.0.0",
+  "description": "Express API for airbnb_listing application",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VickyKr2702/airbnb-listing-react.git"
+  },
+  "author": "Vicky",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VickyKr2702/airbnb-listing-react/issues"
+  },
+  "homepage": "https://github.com/VickyKr2702/airbnb-listing-react#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "helmet": "^7.1.0"
+  },
+  "devDependencies": {
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.4"
+  }
+}
