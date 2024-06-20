@@ -20,6 +20,6 @@ app.get("/api/fetchData", (req, res)=>{
     res.json(data)
 })
 
-app.get("/api/fetch", )
+// app.get("/api/fetch", )
 
 app.listen(PORT, ()=>console.log(`Server listening on port ${PORT}`))

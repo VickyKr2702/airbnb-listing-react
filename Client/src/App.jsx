@@ -34,7 +34,7 @@ function App() {
 
         const func = async() => {
             try{
-                const res = await fetch("http://localhost:3000/api/fetchData")
+                const res = await fetch(import.meta.env.VITE_API_URL)
                 const data = await res.json();
                 const s = data.data.presentation.staysSearch.mapResults.mapSearchResults
                 console.log(filter)
